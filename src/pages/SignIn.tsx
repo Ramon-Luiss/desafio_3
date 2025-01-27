@@ -1,14 +1,23 @@
 import React from "react";
 import { Button, TextField, Typography, Link } from "@mui/material";
-import useSignInStyles from "../../styles/SignInStyles.ts";
+import useSignInStyles from "../styles/SignInStyles.ts";
 import { FcGoogle } from "react-icons/fc";
+
+import { useAuth } from "../context/AuthContext.tsx";
+import { useNavigate } from "react-router-dom";
 
 const SignIn: React.FC = () => {
   const classes = useSignInStyles();
+  const { loginWithGoogle } = useAuth(); // Usa o contexto de autenticação
+  const navigate = useNavigate(); // Hook para redirecionar
 
-  const handleGoogleSignIn = () => {
-    // Lógica de autenticação com o Google
-    console.log("Google Sign In");
+  const handleGoogleSignIn = async () => {
+    try {
+      await loginWithGoogle(); // Executa a autenticação com Google
+      navigate("/home"); // Redireciona para a página Home após login
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+    }
   };
 
   return (
@@ -44,7 +53,7 @@ const SignIn: React.FC = () => {
         <Button
           fullWidth
           className={classes.googleButton}
-          onClick={handleGoogleSignIn}
+          onClick={handleGoogleSignIn} // Chama a função de login com Google
         >
           <FcGoogle size={20} />
           Sign in with Google
