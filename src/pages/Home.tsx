@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Avatar,
@@ -15,15 +15,36 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useAuth } from "../context/AuthContext.tsx";
+import { useNavigate } from "react-router-dom";
+import { getProducts } from "../services/apiService.ts";
 
 const Home: React.FC = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const [tabIndex, setTabIndex] = React.useState(0);
+  const [products, setProducts] = useState<any[]>([]);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);
   };
+
+  const handleSearchClick = () => {
+    navigate("/Search");
+  };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+        setProducts(data as any[]);
+      } catch (error) {
+        console.error("Erro ao carregar os produtos:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
@@ -42,7 +63,9 @@ const Home: React.FC = () => {
 
       {/* Welcome Section */}
       <div style={{ padding: "16px" }}>
-        <Typography variant="subtitle1">Hi, {user ? user.displayName : "User"}</Typography>
+        <Typography variant="subtitle1">
+          Hi, {user ? user.displayName : "User"}
+        </Typography>
         <Typography variant="h5" sx={{ fontWeight: "bold" }}>
           What are you looking for today?
         </Typography>
@@ -51,6 +74,7 @@ const Home: React.FC = () => {
           placeholder="Search headphone"
           fullWidth
           sx={{ marginTop: 2 }}
+          onClick={handleSearchClick}
         />
       </div>
 
@@ -65,68 +89,50 @@ const Home: React.FC = () => {
         <Tab label="Headset" />
       </Tabs>
 
-      {/* Featured Product */}
-      <Card
-        sx={{
-          display: "flex",
-          margin: "16px",
-          borderRadius: "16px",
-          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <CardMedia
-          component="img"
-          sx={{ width: 151 }}
-          image="\image-5.png" // Substitua pelo caminho correto da imagem
-          alt="TMA-2 Modular Headphone"
-        />
-        <CardContent>
-          <Typography component="div" variant="h6" sx={{ fontWeight: "bold" }}>
-            TMA-2 Modular Headphone
-          </Typography>
-          <Button variant="text" color="primary">
-            Shop now →
-          </Button>
-        </CardContent>
-      </Card>
-
       {/* Featured Products */}
       <div style={{ padding: "16px" }}>
-        <Typography variant="h6" sx={{ marginBottom: 2 }}>
-          Featured Products
-        </Typography>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h6" sx={{ marginBottom: 2 }}>
+            Featured Products
+          </Typography>
+          <Button
+            variant="text"
+            color="primary"
+            onClick={() => navigate("/all-products")}
+          >
+            See All
+          </Button>
+        </div>
         <div style={{ display: "flex", overflowX: "auto", gap: "16px" }}>
-          {/* Produto 1 */}
-          <Card sx={{ minWidth: 150, borderRadius: "16px", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)" }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="\image-5.png" // Substitua pelo caminho correto da imagem
-              alt="TMA-2 HD Wireless"
-            />
-            <CardContent>
-              <Typography variant="subtitle1">TMA-2 HD Wireless</Typography>
-              <Typography variant="subtitle2" color="textSecondary">
-                USD 350
-              </Typography>
-            </CardContent>
-          </Card>
-
-          {/* Produto 2 */}
-          <Card sx={{ minWidth:150, borderRadius: "16px", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)" }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="\image-5.png" // Substitua pelo caminho correto da imagem
-              alt="CO2 - Cable"
-            />
-            <CardContent>
-              <Typography variant="subtitle1">CO2 - Cable</Typography>
-              <Typography variant="subtitle2" color="textSecondary">
-                USD 25
-              </Typography>
-            </CardContent>
-          </Card>
+          {products.slice(0, 5).map((product) => (
+            <Card
+              key={product.id}
+              sx={{
+                minWidth: 150,
+                borderRadius: "16px",
+                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="140"
+                image={product.img}
+                alt={product.name}
+              />
+              <CardContent>
+                <Typography variant="subtitle1">{product.name}</Typography>
+                <Typography variant="subtitle2" color="textSecondary">
+                  USD {product.price.toFixed(2)}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
 
