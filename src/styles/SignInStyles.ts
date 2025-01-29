@@ -7,7 +7,7 @@ const useSignInStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     height: "100vh",
-    backgroundImage: "url('/background-0.png')",
+    backgroundImage: "url('desafio_3/background-0.png')",
     backgroundSize: "cover",
     backgroundPosition: "center",
     color: "#ffffff",
