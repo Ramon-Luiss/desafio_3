@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home.tsx";
 import SignIn from "./pages/SignIn.tsx";
 import Search from "./pages/Search.tsx";
