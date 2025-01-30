@@ -3,136 +3,111 @@ import {
   AppBar,
   Toolbar,
   IconButton,
+  TextField,
   Typography,
-  Box,
   Card,
   CardContent,
   CardMedia,
-  Button,
-  Tabs,
-  Tab,
+  Box,
 } from "@mui/material";
 import { ArrowBack, ShoppingCart } from "@mui/icons-material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getProducts } from "../services/apiService.ts";
+import CartIcon from "../components/CartIcon.tsx";
 
-const ProductDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Obtém o ID da URL
+const Search: React.FC = () => {
   const navigate = useNavigate();
-  const [product, setProduct] = useState<any>(null);
-  const [tabIndex, setTabIndex] = useState(0); // Estado para gerenciar as abas
+  const [products, setProducts] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProducts = async () => {
       try {
-        const data = await getProducts() as any[]; // Busca todos os produtos
-        const selectedProduct = data.find((item: any) => item.id === id); // Filtra pelo ID
-        setProduct(selectedProduct);
+        const data = await getProducts() as any[];
+        setProducts(data as any[]);
+        setSearchResults(data); // Inicializa com todos os produtos
       } catch (error) {
-        console.error("Erro ao carregar produto:", error);
+        console.error("Erro ao buscar produtos:", error);
       }
     };
 
-    fetchProduct();
-  }, [id]);
+    fetchProducts();
+  }, []);
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabIndex(newValue); // Atualiza a aba selecionada
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value.toLowerCase();
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(query)
+    );
+    setSearchResults(filtered);
   };
 
-  if (!product) {
-    return <Typography>Carregando...</Typography>;
-  }
-
   return (
-    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+    <div>
       {/* Navbar */}
-      <AppBar position="static" color="transparent" elevation={0}>
+      <AppBar position="fixed" color="transparent" elevation={0} sx={{ backgroundColor: "white" }} >
         <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={() => navigate(-1)}>
-            <ArrowBack />
+          <IconButton edge="start" color="inherit" aria-label="back">
+            <ArrowBack onClick={() => navigate("/Home")} />
           </IconButton>
           <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
-            {product.name}
+            Search
           </Typography>
-          <IconButton edge="end" color="inherit">
-            <ShoppingCart />
-          </IconButton>
+          <CartIcon>
+          </CartIcon>
         </Toolbar>
       </AppBar>
 
-      {/* Produto */}
-      <Box sx={{ padding: 2 }}>
-        <Typography variant="h6" color="green">
-          USD {product.price.toFixed(2)}
-        </Typography>
-        <Typography variant="h4" sx={{ fontWeight: "bold", marginBottom: 2 }}>
-          {product.name}
-        </Typography>
-
-        {/* Abas */}
-        <Tabs
-          value={tabIndex}
-          onChange={handleTabChange}
-          centered
-          sx={{
-            marginBottom: 2,
-            "& .MuiTabs-indicator": { backgroundColor: "green" },
-          }}
-        >
-          <Tab label="Overview" sx={{ textTransform: "none", fontWeight: tabIndex === 0 ? "bold" : "normal" }} />
-          <Tab label="Features" sx={{ textTransform: "none", fontWeight: tabIndex === 1 ? "bold" : "normal" }} />
-        </Tabs>
-
-        {/* Conteúdo da Aba */}
-        {tabIndex === 0 && (
-          <Box>
-            <Card sx={{ borderRadius: "16px", marginBottom: 2 }}>
-              <CardMedia
-                component="img"
-                height="300"
-                image={product.img}
-                alt={product.name}
-              />
-            </Card>
-            <Typography variant="h5" sx={{ marginBottom: 2 }}>
-              Reviews ({product.reviews.length})
-            </Typography>
-            {product.reviews.map((review: any, index: number) => (
-              <Box key={index} sx={{ marginBottom: 2 }}>
-                <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-                  {review.userName}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  ★ {review.rating} · {review.postedAt}
-                </Typography>
-                <Typography>{review.comment}</Typography>
-              </Box>
-            ))}
-          </Box>
-        )}
-
-        {tabIndex === 1 && (
-          <Box>
-            <Typography variant="h5" sx={{ marginBottom: 2 }}>
-              Features
-            </Typography>
-            <Typography variant="body1">{product.details}</Typography>
-          </Box>
-        )}
-
-        {/* Botão Add to Cart */}
-        <Button
-          variant="contained"
-          color="success"
+      {/* Search Field */}
+      <Box sx={{ 
+        position: "fixed", 
+        top: "44px", 
+        left: 0, 
+        width: "100%", 
+        backgroundColor: "white", 
+        zIndex: 10, 
+        padding: "8px", 
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)"
+      }}>
+        <TextField
+          variant="outlined"
+          placeholder="Search product"
           fullWidth
-          sx={{ marginTop: 4 }}
-        >
-          Add To Cart
-        </Button>
+          onChange={handleSearch}
+          sx={{
+            borderRadius: "20px",
+            backgroundColor: "#f5f5f5",
+            "& fieldset": { border: "none" } // Remove a borda do campo de busca
+          }}
+        />
       </Box>
-    </Box>
+
+      {/* Results */}
+      <Box sx={{ marginTop: "110px", padding: 2 }}>
+        {searchResults.length > 0 ? (
+          searchResults.map((product) => (
+            <Card sx={{ display: "flex", marginBottom: 2 }} key={product.id} onClick={() => navigate(`/product/${product.id}`)}>
+              <CardMedia component="img" sx={{ width: 100 }} image={product.img} alt={product.name} />
+              <CardContent>
+                <Typography variant="h6">{product.name}</Typography>
+                <Typography variant="body1">USD {product.price.toFixed(2)}</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  ★{" "}
+                  {(
+                    product.reviews.reduce((sum, r) => sum + r.rating, 0) /
+                    product.reviews.length
+                  ).toFixed(1)}{" "}
+                  · {product.reviews.length} Reviews
+                </Typography>
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          <Typography sx={{ padding: 2 }}>Nenhum produto encontrado.</Typography>
+        )}
+      </Box>
+    </div>
   );
 };
 
-export default ProductDetail;
+export default Search;

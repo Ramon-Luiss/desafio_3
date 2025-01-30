@@ -6,6 +6,8 @@ import Search from "./pages/Search.tsx";
 import { AuthProvider, useAuth } from "./context/AuthContext.tsx";
 import AllProducts from "./pages/AllProducts.tsx";
 import ProductDetail from "./pages/ProductDetail.tsx";
+import ShoppingCart from "./pages/ShoppingCart.tsx";
+import CartProvider from "./context/CartContext.tsx";
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
@@ -14,43 +16,53 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 const App = () => (
   <AuthProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/search"
-          element={
-            <ProtectedRoute>
-              <Search />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/all-products"
-          element={
-            <ProtectedRoute>
-              <AllProducts />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/product/:id"
-          element={
-            <ProtectedRoute>
-              <ProductDetail />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </Router>
+    <CartProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <ProtectedRoute>
+                <Search />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/all-products"
+            element={
+              <ProtectedRoute>
+                <AllProducts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/product/:id"
+            element={
+              <ProtectedRoute>
+                <ProductDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <ShoppingCart />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </CartProvider>
   </AuthProvider>
 );
 
