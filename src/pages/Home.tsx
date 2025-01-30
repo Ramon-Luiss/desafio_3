@@ -18,6 +18,8 @@ import { useAuth } from "../context/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../services/apiService.ts";
 
+
+
 const Home: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -49,12 +51,12 @@ const Home: React.FC = () => {
   return (
     <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
       {/* Navbar */}
-      <AppBar position="static" color="transparent" elevation={0}>
+      <AppBar position="fixed" color="transparent" elevation={0} sx={{ backgroundColor: "white" }}>
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography marginLeft={"90px"} variant="h6" sx={{ flexGrow: 1 }}>
+          <Typography marginLeft={"110px"} variant="h6" sx={{ flexGrow: 1 }}>
             Audio
           </Typography>
           {user && <Avatar alt={user.displayName} src={user.photoURL} />}
@@ -62,7 +64,7 @@ const Home: React.FC = () => {
       </AppBar>
 
       {/* Welcome Section */}
-      <div style={{ padding: "16px" }}>
+      <div style={{ marginTop: "64px",padding: "16px" }}>
         <Typography variant="subtitle1">
           Hi, {user ? user.displayName : "User"}
         </Typography>

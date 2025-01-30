@@ -14,10 +14,13 @@ import {
 import { ArrowBack, ShoppingCart } from "@mui/icons-material";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProducts } from "../services/apiService.ts";
+import { useCart } from "../context/CartContext.tsx";
+import CartIcon from "../components/CartIcon.tsx";
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Obtém o ID do produto da URL
   const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState<any>(null);
   const [tabIndex, setTabIndex] = useState(0); // Controla qual aba está ativa
 
@@ -49,7 +52,7 @@ const ProductDetail: React.FC = () => {
   return (
     <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
       {/* Navbar */}
-      <AppBar position="static" color="transparent" elevation={0}>
+      <AppBar position="fixed" color="transparent" elevation={0} sx={{ backgroundColor: "white" }} >
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={() => navigate(-1)}>
             <ArrowBack />
@@ -57,14 +60,14 @@ const ProductDetail: React.FC = () => {
           <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
             {product.name}
           </Typography>
-          <IconButton edge="end" color="inherit">
-            <ShoppingCart />
-          </IconButton>
+          <CartIcon>
+
+          </CartIcon>
         </Toolbar>
       </AppBar>
 
       {/* Produto */}
-      <Box sx={{ padding: 2 }}>
+      <Box sx={{ marginTop: "44px", padding: 2 }}>
         <Typography variant="h6" color="green">
           USD {product.price.toFixed(2)}
         </Typography>
@@ -136,14 +139,29 @@ const ProductDetail: React.FC = () => {
         )}
 
         {/* Botão Add to Cart */}
-        <Button
-          variant="contained"
-          color="success"
-          fullWidth
-          sx={{ marginTop: 4 }}
+        <Box
+          sx={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            width: "100%",
+            backgroundColor: "white",
+            padding: "16px",
+            boxShadow: "0px -2px 10px rgba(0,0,0,0.1)", // Sombra para separar do conteúdo
+            display: "flex",
+            justifyContent: "center"
+          }}
         >
-          Add To Cart
-        </Button>
+          <Button
+            variant="contained"
+            color="success"
+            fullWidth
+            sx={{ borderRadius: "20px", maxWidth: "300px" }} // Limita a largura máxima do botão
+            onClick={() => addToCart({ ...product, quantity: 1 })}
+          >
+            Add To Cart
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

@@ -10,13 +10,13 @@ import {
     CardContent,
     Grid,
     Box,
-    Badge,
     CircularProgress,
     Dialog,
 } from "@mui/material";
 import { ArrowBack, ShoppingCart, Close, FilterAlt } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../services/apiService.ts";
+import CartIcon from "../components/CartIcon.tsx";
 
 const AllProducts: React.FC = () => {
     const navigate = useNavigate();
@@ -88,7 +88,7 @@ const AllProducts: React.FC = () => {
     return (
         <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
             {/* Navbar */}
-            <AppBar position="static" color="transparent" elevation={0}>
+            <AppBar position="fixed" color="transparent" elevation={0} sx={{ backgroundColor: "white" }}>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" onClick={() => navigate(-1)}>
                         <ArrowBack />
@@ -96,16 +96,14 @@ const AllProducts: React.FC = () => {
                     <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
                         All Products
                     </Typography>
-                    <IconButton edge="end" color="inherit">
-                        <Badge badgeContent={2} color="error">
-                            <ShoppingCart />
-                        </Badge>
-                    </IconButton>
+                    <CartIcon>
+                        
+                    </CartIcon>
                 </Toolbar>
             </AppBar>
 
             {/* Filtro */}
-            <Box sx={{ display: "flex", justifyContent: "center", padding: 2 }}>
+            <Box sx={{ marginTop: "64px", display: "flex", justifyContent: "center", padding: 2 }}>
                 <Button
                     variant="outlined"
                     startIcon={<FilterAlt />}
