@@ -5,6 +5,7 @@ import SignIn from "./pages/SignIn.tsx";
 import Search from "./pages/Search.tsx";
 import { AuthProvider, useAuth } from "./context/AuthContext.tsx";
 import AllProducts from "./pages/AllProducts.tsx";
+import ProductDetail from "./pages/ProductDetail.tsx";
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
@@ -37,6 +38,14 @@ const App = () => (
           element={
             <ProtectedRoute>
               <AllProducts />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/product/:id"
+          element={
+            <ProtectedRoute>
+              <ProductDetail />
             </ProtectedRoute>
           }
         />

@@ -6,7 +6,6 @@ import {
   Typography,
   Box,
   Card,
-  CardContent,
   CardMedia,
   Button,
   Tabs,
@@ -17,16 +16,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getProducts } from "../services/apiService.ts";
 
 const ProductDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Obtém o ID da URL
+  const { id } = useParams<{ id: string }>(); // Obtém o ID do produto da URL
   const navigate = useNavigate();
   const [product, setProduct] = useState<any>(null);
-  const [tabIndex, setTabIndex] = useState(0); // Estado para gerenciar as abas
+  const [tabIndex, setTabIndex] = useState(0); // Controla qual aba está ativa
 
+  // Carrega os detalhes do produto com base no ID
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const data = await getProducts() as any[]; // Busca todos os produtos
-        const selectedProduct = data.find((item: any) => item.id === id); // Filtra pelo ID
+        const data = await getProducts() as any[];
+        const selectedProduct = data.find((item: any) => item.id === id);
         setProduct(selectedProduct);
       } catch (error) {
         console.error("Erro ao carregar produto:", error);
@@ -36,10 +36,12 @@ const ProductDetail: React.FC = () => {
     fetchProduct();
   }, [id]);
 
+  // Atualiza a aba ativa
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabIndex(newValue); // Atualiza a aba selecionada
+    setTabIndex(newValue);
   };
 
+  // Verifica se o produto foi carregado
   if (!product) {
     return <Typography>Carregando...</Typography>;
   }
@@ -77,14 +79,26 @@ const ProductDetail: React.FC = () => {
           centered
           sx={{
             marginBottom: 2,
-            "& .MuiTabs-indicator": { backgroundColor: "green" },
+            "& .MuiTabs-indicator": { backgroundColor: "green" }, // Indicador verde
           }}
         >
-          <Tab label="Overview" sx={{ textTransform: "none", fontWeight: tabIndex === 0 ? "bold" : "normal" }} />
-          <Tab label="Features" sx={{ textTransform: "none", fontWeight: tabIndex === 1 ? "bold" : "normal" }} />
+          <Tab
+            label="Overview"
+            sx={{
+              textTransform: "none",
+              fontWeight: tabIndex === 0 ? "bold" : "normal",
+            }}
+          />
+          <Tab
+            label="Features"
+            sx={{
+              textTransform: "none",
+              fontWeight: tabIndex === 1 ? "bold" : "normal",
+            }}
+          />
         </Tabs>
 
-        {/* Conteúdo da Aba */}
+        {/* Conteúdo das Abas */}
         {tabIndex === 0 && (
           <Box>
             <Card sx={{ borderRadius: "16px", marginBottom: 2 }}>
