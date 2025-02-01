@@ -110,7 +110,7 @@ const ShoppingCart: React.FC = () => {
           variant="contained"
           color="success"
           fullWidth
-          sx={{ maxWidth: "400px", margin: "0 auto" }}
+          sx={{ maxWidth: "400px", margin: "0 auto", backgroundColor: "#0ACF83"}}
         >
           Proceed to Checkout
         </Button>

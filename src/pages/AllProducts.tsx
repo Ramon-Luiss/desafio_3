@@ -109,8 +109,9 @@ const AllProducts: React.FC = () => {
                     startIcon={<FilterAlt />}
                     sx={{
                         textTransform: "none",
-                        borderRadius: "24px",
-                        padding: "8px 16px",
+                        borderRadius: "10px",
+                        padding: "8px 96px",
+                        
                     }}
                     onClick={() => setFilterOpen(true)} // Abre o modal de filtro
                 >
@@ -163,7 +164,7 @@ const AllProducts: React.FC = () => {
             {/* Modal de Filtro */}
             <Dialog open={filterOpen} onClose={() => setFilterOpen(false)} fullWidth>
                 <Box sx={{ padding: 3 }}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                         <Typography variant="h6">Filter</Typography>
                         <IconButton onClick={() => setFilterOpen(false)}>
                             <Close />
@@ -210,7 +211,7 @@ const AllProducts: React.FC = () => {
                         variant="contained"
                         color="success"
                         fullWidth
-                        sx={{ marginTop: 3 }}
+                        sx={{ marginTop: 3, backgroundColor: "#0ACF83" }}
                         onClick={applyFilter}
                     >
                         Apply Filter

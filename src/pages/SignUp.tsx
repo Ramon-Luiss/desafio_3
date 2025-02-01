@@ -5,25 +5,31 @@ import { FcGoogle } from "react-icons/fc";
 
 import { useAuth } from "../context/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig.ts";
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   const classes = useSignInStyles();
-  const { loginWithGoogle } = useAuth(); // Usa o contexto de autenticação
-  const navigate = useNavigate(); // Hook para redirecionar
+  const { loginWithGoogle } = useAuth();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSignIn = async () => {
-    setError(""); // Limpa erros anteriores
+  const handleSignUp = async () => {
+    setError("");
+    if (password !== confirmPassword) {
+      setError("As senhas não correspondem.");
+      return;
+    }
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/home"); // Redireciona para a página Home após login bem-sucedido
+      await createUserWithEmailAndPassword(auth, email, password);
+      navigate("/account-created"); // Redireciona para a página de sucesso
     } catch (err: any) {
-      setError("E-mail ou senha inválidos."); // Exibe o erro retornado pelo Firebase
+      setError("Este e-mail ja foi cadastrado.");
     }
   };
   const handleGoogleSignIn = async () => {
@@ -34,12 +40,11 @@ const SignIn: React.FC = () => {
       console.error("Erro ao fazer login com Google:", error);
     }
   };
-
   return (
     <div className={classes.container}>
-      <Typography sx={{ fontSize: "60px" }} className={classes.logo}>Audio</Typography>
-      <Typography sx={{ marginBottom: "30px" }} className={classes.subtitle}>
-        It's modular and designed to last
+      <Typography className={classes.logo}>Audio</Typography>
+      <Typography className={classes.subtitle}>
+        Create your account
       </Typography>
       <form className={classes.form}>
         <TextField
@@ -59,22 +64,28 @@ const SignIn: React.FC = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <TextField
+          variant="outlined"
+          label="Confirm Password"
+          type="password"
+          fullWidth
+          className={classes.input}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
         {error && (
           <Alert severity="error" sx={{ marginBottom: "16px" }}>
             {error}
           </Alert>
         )}
-        <Link sx={{ color: "white" }} href="#" className={classes.link}>
-          Forgot Password
-        </Link>
         <Button
           sx={{ backgroundColor: "#0ACF83" }}
           variant="contained"
           fullWidth
           className={classes.signInButton}
-          onClick={handleSignIn} // Chama a função de login
+          onClick={handleSignUp}
         >
-          Sign In
+          Sign Up
         </Button>
         <Button
           sx={{ color: "white" }}
@@ -87,13 +98,13 @@ const SignIn: React.FC = () => {
         </Button>
       </form>
       <Typography className={classes.footer}>
-        Don’t have an account?{" "}
-        <Link onClick={() => navigate("/signup")} sx={{ cursor: "pointer" }}>
-          Sign Up here
+        Already have an account?{" "}
+        <Link onClick={() => navigate("/")} sx={{ cursor: "pointer" }}>
+          Sign In here
         </Link>
       </Typography>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;
