@@ -26,11 +26,19 @@ const SignIn: React.FC = () => {
       setError("E-mail ou senha inválidos."); // Exibe o erro retornado pelo Firebase
     }
   };
+  const handleGoogleSignIn = async () => {
+    try {
+      await loginWithGoogle(); // Aguarda o login
+      navigate("/home"); // Redireciona após login bem-sucedido
+    } catch (error) {
+      console.error("Erro ao fazer login com Google:", error);
+    }
+  };
 
   return (
     <div className={classes.container}>
-      <Typography sx= {{fontSize: "60px"}} className={classes.logo}>Audio</Typography>
-      <Typography sx= {{marginBottom: "30px"}} className={classes.subtitle}>
+      <Typography sx={{ fontSize: "60px" }} className={classes.logo}>Audio</Typography>
+      <Typography sx={{ marginBottom: "30px" }} className={classes.subtitle}>
         It's modular and designed to last
       </Typography>
       <form className={classes.form}>
@@ -56,11 +64,11 @@ const SignIn: React.FC = () => {
             {error}
           </Alert>
         )}
-        <Link sx={{color:"white"}} href="#" className={classes.link}>
+        <Link sx={{ color: "white" }} href="#" className={classes.link}>
           Forgot Password
         </Link>
         <Button
-          sx={{backgroundColor:"#0ACF83"}}
+          sx={{ backgroundColor: "#0ACF83" }}
           variant="contained"
           fullWidth
           className={classes.signInButton}
@@ -69,10 +77,10 @@ const SignIn: React.FC = () => {
           Sign In
         </Button>
         <Button
-          sx={{color:"white"}}
+          sx={{ color: "white" }}
           fullWidth
           className={classes.googleButton}
-          onClick={loginWithGoogle} // Login com Google
+          onClick={handleGoogleSignIn} // Chama a função corrigida
         >
           <FcGoogle size={20} />
           Sign in with Google

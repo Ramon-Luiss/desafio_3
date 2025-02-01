@@ -32,7 +32,14 @@ const SignUp: React.FC = () => {
       setError("Este e-mail ja foi cadastrado.");
     }
   };
-
+  const handleGoogleSignIn = async () => {
+    try {
+      await loginWithGoogle(); // Aguarda o login
+      navigate("/home"); // Redireciona após login bem-sucedido
+    } catch (error) {
+      console.error("Erro ao fazer login com Google:", error);
+    }
+  };
   return (
     <div className={classes.container}>
       <Typography className={classes.logo}>Audio</Typography>
@@ -72,7 +79,7 @@ const SignUp: React.FC = () => {
           </Alert>
         )}
         <Button
-          sx={{backgroundColor:"#0ACF83"}}
+          sx={{ backgroundColor: "#0ACF83" }}
           variant="contained"
           fullWidth
           className={classes.signInButton}
@@ -81,13 +88,13 @@ const SignUp: React.FC = () => {
           Sign Up
         </Button>
         <Button
-          sx={{color:"white"}}
+          sx={{ color: "white" }}
           fullWidth
           className={classes.googleButton}
-          onClick={loginWithGoogle}
+          onClick={handleGoogleSignIn} // Chama a função corrigida
         >
           <FcGoogle size={20} />
-          Sign up with Google
+          Sign in with Google
         </Button>
       </form>
       <Typography className={classes.footer}>

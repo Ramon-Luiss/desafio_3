@@ -22,11 +22,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const loginWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      setUser(result.user); // Atualiza o estado com o usuário autenticado
     } catch (error) {
       console.error("Erro ao fazer login com Google:", error);
     }
   };
+  
 
   const logout = async () => {
     try {
