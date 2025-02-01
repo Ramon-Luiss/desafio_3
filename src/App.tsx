@@ -8,7 +8,8 @@ import AllProducts from "./pages/AllProducts.tsx";
 import ProductDetail from "./pages/ProductDetail.tsx";
 import ShoppingCart from "./pages/ShoppingCart.tsx";
 import CartProvider from "./context/CartContext.tsx";
-
+import SignUp from "./pages/SignUp.tsx";
+import AccountCreated from "./pages/AccountCreated.tsx";
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   return user ? <>{children}</> : <SignIn />;
@@ -20,6 +21,8 @@ const App = () => (
       <Router>
         <Routes>
           <Route path="/" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/account-created" element={<AccountCreated />} />
           <Route
             path="/home"
             element={

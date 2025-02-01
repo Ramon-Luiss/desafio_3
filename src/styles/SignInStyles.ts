@@ -35,18 +35,17 @@ const useSignInStyles = makeStyles({
   },
   link: {
     fontSize: "14px",
-    textAlign: "right",
-    color: "#00C853",
-    textDecoration: "none",
+    textAlign: "center",
+    color: "#0ACF83",
   },
   signInButton: {
-    backgroundColor: "#00C853",
+    backgroundColor: "#0ACF83",
     color: "#ffffff",
     fontWeight: "bold",
     padding: "12px",
     borderRadius: "8px",
     "&:hover": {
-      backgroundColor: "#00B342",
+      backgroundColor: "#0ACF83",
     },
   },
   googleButton: {
@@ -71,7 +70,7 @@ const useSignInStyles = makeStyles({
     textAlign: "center",
     color: "#ffffff",
     "& a": {
-      color: "#00C853",
+      color: "#0ACF83",
       textDecoration: "none",
     },
   },
