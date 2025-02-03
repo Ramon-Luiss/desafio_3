@@ -50,4 +50,3 @@ Este projeto é um e-commerce focado em produtos de áudio, desenvolvido com **R
 
 ---
 
-## 📂 **Estrutura do Projeto**
