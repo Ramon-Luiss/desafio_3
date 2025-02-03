@@ -13,9 +13,9 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Slider from "react-slick"; // Biblioteca do carrossel
-import { useAuth } from "../context/AuthContext.tsx";
+import { useAuth } from "../../context/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
-import { getProducts } from "../services/apiService.ts";
+import { getProducts } from "../../services/apiService.ts";
 
 const Home: React.FC = () => {
   const { user, logout } = useAuth();

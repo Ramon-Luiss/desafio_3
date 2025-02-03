@@ -3,12 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDVJMX2KhvfyyLvgEb8WBaVTmdqlXY399I",
-    authDomain: "desafio-8cb1b.firebaseapp.com",
-    projectId: "desafio-8cb1b",
-    storageBucket: "desafio-8cb1b.firebasestorage.app",
-    messagingSenderId: "254735822741",
-    appId: "1:254735822741:web:4f78c158eb8428c20e909c",
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
