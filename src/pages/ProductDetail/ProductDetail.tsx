@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
   AppBar,
@@ -14,9 +15,9 @@ import {
 import { ArrowBack } from "@mui/icons-material";
 import Slider from "react-slick";
 import { useNavigate, useParams } from "react-router-dom";
-import { getProducts } from "../services/apiService.ts";
-import { useCart } from "../context/CartContext.tsx";
-import CartIcon from "../components/CartIcon.tsx";
+import { getProducts } from "../../services/apiService.ts";
+import { useCart } from "../../context/CartContext.tsx";
+import CartIcon from "../../components/CartIcon.tsx";
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Obtém o ID do produto da URL
@@ -28,6 +29,8 @@ const ProductDetail: React.FC = () => {
 
   // URL da imagem personalizada para os avatares dos comentários
   const commentAvatarUrl =
+
+
     "https://s3-alpha-sig.figma.com/img/991d/1a28/b834c238506c87b86dc6e60eb15b3038?Expires=1739145600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=ubwa6wVAHqjpNoiyPd~E-HTrrZN~CwARQsUU1xNcHCgJLykmtqtQ4iJMhng7EydSyQ9iyhn7ZjsmarG6jXMUfF0risAF7bRo84JW11mWhRltz-BtH~LCeJV-Z-496dc~AmBih~~MTwyCkK01LEBVyQoj-tJZqPQS0~U5UddHkwb4T8k2bpGUf8KNZhHt3Rsa00DLVjIbyfsXRHiV2sWb63PoE-kH~034NJXuJVk1ouxuwgTov~eb1xGa971GneyWU7v1lwnuN-g6r3GtOqHE~ZzyVWKK4iYR0txlEkyZOuMwOrsCYL2M6kRK66jwknqfZ~6sLwtwrRZntj1L1BH0jQ__"; // Substitua por sua imagem preferida
 
   // Carrega os detalhes do produto com base no ID
@@ -131,42 +134,42 @@ const ProductDetail: React.FC = () => {
                 sx={{
                   display: "flex",
                   alignItems: "flex-start",
-        gap: "12px",
-        marginBottom: "16px",
-        padding: "12px",
-        backgroundColor: "#f9f9f9",
-        borderRadius: "8px",
-        boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.1)",
-                  
+                  gap: "12px",
+                  marginBottom: "16px",
+                  padding: "12px",
+                  backgroundColor: "#f9f9f9",
+                  borderRadius: "8px",
+                  boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.1)",
+
                 }}
               >
                 <img
                   src={commentAvatarUrl}
                   alt="User Avatar"
-                  style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
+                  style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
                 />
                 <Box>
                   <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: "16px" }}>
                     {review.userName}
                   </Typography>
                   <Box sx={{ display: "flex", alignItems: "center", marginBottom: "8px" }}>
-          {/* Estrelas */}
-          {Array.from({ length: review.rating }, (_, i) => (
-            <span key={i} style={{ color: "#FFD700", marginRight: "4px" }}>★</span>
-          ))}
-        </Box>
-        <Typography
-          variant="body2"
-          sx={{
-            fontSize: "14px",
-            lineHeight: "1.5",
-            maxHeight: "4.5em", // Limita a altura para 3 linhas
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {review.comment}
-        </Typography>
+                    {/* Estrelas */}
+                    {Array.from({ length: review.rating }, (_, i) => (
+                      <span key={i} style={{ color: "#FFD700", marginRight: "4px" }}>★</span>
+                    ))}
+                  </Box>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontSize: "14px",
+                      lineHeight: "1.5",
+                      maxHeight: "4.5em", // Limita a altura para 3 linhas
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {review.comment}
+                  </Typography>
                 </Box>
               </Box>
             ))}
@@ -181,7 +184,7 @@ const ProductDetail: React.FC = () => {
                   marginBottom: 2,
                 }}
               >
-                <Typography sx={{fontSize: "16px"}}variant="h5">Another Product</Typography>
+                <Typography sx={{ fontSize: "16px" }} variant="h5">Another Product</Typography>
                 <Button sx={{ color: "grey", fontSize: "14px" }} onClick={() => navigate("/all-products")} size="small">
                   See All
                 </Button>
@@ -199,10 +202,10 @@ const ProductDetail: React.FC = () => {
                       minHeight: "260px", // Aumenta a altura mínima para acomodar o conteúdo
                       display: "flex",
                       flexDirection: "column",
-                      justifyContent: "space-between", 
+                      justifyContent: "space-between",
                       cursor: "pointer",
                       alignItems: "center", // Adiciona leve sombra para destacar os cards
-                      
+
                     }}
                     onClick={() => navigate(`/product/${related.id}`)}
                   >
@@ -231,9 +234,9 @@ const ProductDetail: React.FC = () => {
                       {related.name}
                     </Typography>
                     <Typography
-                    fontWeight="bold"
+                      fontWeight="bold"
                       variant="body2"
-                      
+
                       sx={{
                         fontSize: "12px",
                         marginBottom: "4px", // Espaço abaixo do preço
@@ -270,7 +273,7 @@ const ProductDetail: React.FC = () => {
             backgroundColor: "white",
             padding: "16px",
             boxShadow: "0px -2px 10px rgba(0,0,0,0.1)",
-            
+
             justifyContent: "center",
           }}
         >
@@ -278,7 +281,7 @@ const ProductDetail: React.FC = () => {
             variant="contained"
             color="success"
             fullWidth
-            
+
             sx={{ borderRadius: "5px", width: "90%", backgroundColor: "#0ACF83" }}
             onClick={() => addToCart({ ...product, quantity: 1 })}
           >

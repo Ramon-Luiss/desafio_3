@@ -12,7 +12,7 @@ import {
   Button,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Slider from "react-slick"; // Biblioteca do carrossel
+import Slider from "react-slick"; 
 import { useAuth } from "../../context/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../../services/apiService.ts";
@@ -55,8 +55,8 @@ const Home: React.FC = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true, // Deslizamento automático
-    autoplaySpeed: 2500, // Velocidade do autoplay (3 segundos)
+    autoplay: true, 
+    autoplaySpeed: 2500, 
   };
 
   return (
@@ -98,7 +98,7 @@ const Home: React.FC = () => {
           onChange={(event, newValue) => setCategory(newValue)}
           centered
           sx={{
-            backgroundColor: "#f5f5f5", // Cor de fundo das abas
+            backgroundColor: "#f5f5f5", 
             borderRadius: "12px",
             "& .MuiTabs-indicator": { display: "none" },
           }}
@@ -113,7 +113,7 @@ const Home: React.FC = () => {
               backgroundColor: category === "headphones" ? "#0ACF83" : "transparent",
               color: category === "headphones" ? "white" : "black",
               "&.Mui-selected": {
-                color: "white", // Garante que o texto da aba ativa seja branco
+                color: "white", 
               },
               "&:hover": {
                 backgroundColor: category === "headphones" ? "#0ACF83" : "rgba(0, 0, 0, 0.1)",
@@ -130,7 +130,7 @@ const Home: React.FC = () => {
               backgroundColor: category === "headsets" ? "#0ACF83" : "transparent",
               color: category === "headsets" ? "white" : "black",
               "&.Mui-selected": {
-                color: "white", // Garante que o texto da aba ativa seja branco
+                color: "white", 
               },
               "&:hover": {
                 backgroundColor: category === "headsets" ? "#0ACF83" : "rgba(0, 0, 0, 0.1)",
@@ -156,7 +156,7 @@ const Home: React.FC = () => {
               }}
               onClick={() => navigate(`/product/${product.id}`)}
             >
-              {/* Text Section */}
+              
               <Box sx={{ flex: 1, paddingRight: 2 }}>
                 <Typography
                   variant="h6"
@@ -250,13 +250,13 @@ const Home: React.FC = () => {
                 padding: 2,
                 cursor: "pointer",
                 backgroundColor: "#fff",
-                margin: "0 16px", // Adiciona espaço entre os produtos
-                minHeight: "150px", // Altura mínima consistente
-                width: "calc(50% - 32px)", // Garante espaçamento ao redor dos produtos
+                margin: "0 16px",
+                minHeight: "150px",
+                width: "calc(50% - 32px)", 
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                alignItems: "center", // Adiciona leve sombra para destacar os cards
+                alignItems: "center", 
               }}
               onClick={() => navigate(`/product/${product.id}`)}
             >
