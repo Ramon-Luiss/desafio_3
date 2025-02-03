@@ -1,50 +1,53 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
+# 🎧 Audio E-commerce
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🚀 Aplicação web mobile para navegação e compra de produtos de áudio.
 
-## Available Scripts
+🔗 **Acesse o projeto online:**  
+[![Deploy](https://img.shields.io/badge/Ver%20Demo%20Online-0ACF83?style=for-the-badge&logo=vercel&logoColor=white)](https://ramon-luiss.github.io/desafio_3/)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 📌 **Sobre o Projeto**
+Este projeto é um e-commerce focado em produtos de áudio, desenvolvido com **React**, **TypeScript** e **Firebase Authentication**. O objetivo é proporcionar uma **experiência fluida e moderna** para usuários mobile.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🚀 **Funcionalidades**
+✔ **Autenticação de Usuário**
+   - Login com Google via **Firebase Authentication**  
+   - Cadastro e login com **e-mail e senha**  
 
-### `npm test`
+✔ **Home Page**
+   - Pesquisa interativa de produtos  
+   - Carrosséis dinâmicos de produtos filtrados por categoria  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+✔ **Página de Pesquisa**
+   - Barra de busca funcional  
+   - Seção de **Produtos Populares**  
 
-### `npm run build`
+✔ **Detalhes do Produto**
+   - Exibição de **reviews e avaliações**  
+   - Alternância entre **"Overview"** e **"Features"**  
+   - Carrossel de **produtos relacionados**  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+✔ **Carrinho de Compras**
+   - **Gerenciamento de itens** no carrinho via Context API  
+   - Exibição do **total de itens e valor**  
+   - Botão fixo **"Proceed to Checkout"**  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+✔ **Logout**
+   - Menu suspenso ao clicar no avatar do usuário, permitindo logout  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🛠 **Tecnologias Utilizadas**
+🔹 **Frontend:** React + TypeScript  
+🔹 **Gerenciamento de Estado:** Context API  
+🔹 **Estilização:** Material UI + CSS Modules  
+🔹 **Autenticação:** Firebase Authentication  
+🔹 **Backend:** API criada via **Run Mocky**  
+🔹 **Deploy:** GitHub Pages  
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-=======
-# desafio_3
->>>>>>> 999a5b2bb9899ba0334b7abdccc13ad7adc4e821
+## 📂 **Estrutura do Projeto**
