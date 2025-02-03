@@ -1,6 +1,6 @@
 import React from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home.tsx";
+import Home from "./pages/Home/Home.tsx";
 import SignIn from "./pages/SignIn.tsx";
 import Search from "./pages/Search.tsx";
 import { AuthProvider, useAuth } from "./context/AuthContext.tsx";
