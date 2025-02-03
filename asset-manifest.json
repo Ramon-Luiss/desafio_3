@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/desafio_3/static/css/main.ee602894.css",
-    "main.js": "/desafio_3/static/js/main.51b16203.js",
+    "main.js": "/desafio_3/static/js/main.114a22ca.js",
     "static/media/slick.svg": "/desafio_3/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/desafio_3/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/desafio_3/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/desafio_3/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/desafio_3/index.html",
     "main.ee602894.css.map": "/desafio_3/static/css/main.ee602894.css.map",
-    "main.51b16203.js.map": "/desafio_3/static/js/main.51b16203.js.map"
+    "main.114a22ca.js.map": "/desafio_3/static/js/main.114a22ca.js.map"
   },
   "entrypoints": [
     "static/css/main.ee602894.css",
-    "static/js/main.51b16203.js"
+    "static/js/main.114a22ca.js"
   ]
 }
