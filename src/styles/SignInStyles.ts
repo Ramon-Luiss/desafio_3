@@ -7,20 +7,27 @@ const useSignInStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     height: "100vh",
-    backgroundImage: `url(${process.env.PUBLIC_URL}/background-0.png)`,
+    background: `
+      linear-gradient(to bottom, rgba(18, 80, 56, 1), rgba(15, 161, 105, 0)), 
+      url(${process.env.PUBLIC_URL}/background-0.png)`, // Degradê e imagem combinados
     backgroundSize: "cover",
     backgroundPosition: "center",
-    color: "#ffffff",
+    backgroundRepeat: "no-repeat",
+    backgroundBlendMode: "overlay", // Combina o degradê com a imagem
   },
   logo: {
     fontSize: "36px",
     fontWeight: "bold",
     marginBottom: "8px",
+    color: "#fff",
+    zIndex: 1,
   },
   subtitle: {
     fontSize: "16px",
     fontWeight: "300",
     marginBottom: "32px",
+    color: "#fff",
+    zIndex: 1
   },
   form: {
     width: "80%",
