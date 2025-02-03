@@ -67,7 +67,7 @@ const Home: React.FC = () => {
           <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
+          <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" , fontSize:"19.05px"}}>
             Audio
           </Typography>
           {user && <Avatar alt={user.displayName} src={user.photoURL} />}
@@ -75,18 +75,18 @@ const Home: React.FC = () => {
       </AppBar>
 
       {/* Welcome Section */}
-      <div style={{ borderRadius: "20px", marginTop: "64px", padding: "16px" }}>
-        <Typography variant="subtitle1">
+      <div style={{ marginTop: "64px", padding: "16px" }}>
+        <Typography sx= {{fontSize:"16px"}} variant="subtitle1">
           Hi, {user ? user.displayName : "User"}
         </Typography>
-        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h5" sx={{ fontWeight: "bold", fontSize: "24px" }}>
           What are you looking for today?
         </Typography>
         <TextField
           variant="outlined"
           placeholder="Search headphone"
           fullWidth
-          sx={{ marginTop: 2 }}
+          sx={{ marginTop: 2 , borderRadius: "20px"}}
           onClick={handleSearchClick}
         />
       </div>
@@ -95,15 +95,49 @@ const Home: React.FC = () => {
       <Box sx={{ marginTop: 4, padding: "16px" }}>
         <Tabs
           value={category}
-          onChange={(e, newValue) => setCategory(newValue)}
+          onChange={(event, newValue) => setCategory(newValue)}
           centered
-          
-          textColor="primary"
-          indicatorColor="primary"
-          sx = {{backgroundColor: "transparent","& .MuiTabs-indicator": { backgroundColor: "#0ACF83" },}}
+          sx={{
+            backgroundColor: "#f5f5f5", // Cor de fundo das abas
+            borderRadius: "12px",
+            "& .MuiTabs-indicator": { display: "none" },
+          }}
         >
-          <Tab label="Headphones" value="headphones" />
-          <Tab label="Headsets" value="headsets" />
+          <Tab
+            label="Headphones"
+            value="headphones"
+            sx={{
+              fontSize: "14px",
+              textTransform: "none",
+              borderRadius: "12px",
+              backgroundColor: category === "headphones" ? "#0ACF83" : "transparent",
+              color: category === "headphones" ? "white" : "black",
+              "&.Mui-selected": {
+                color: "white", // Garante que o texto da aba ativa seja branco
+              },
+              "&:hover": {
+                backgroundColor: category === "headphones" ? "#0ACF83" : "rgba(0, 0, 0, 0.1)",
+              },
+            }}
+          />
+          <Tab
+            label="Headsets"
+            value="headsets"
+            sx={{
+              fontSize: "14px",
+              textTransform: "none",
+              borderRadius: "12px",
+              backgroundColor: category === "headsets" ? "#0ACF83" : "transparent",
+              color: category === "headsets" ? "white" : "black",
+              "&.Mui-selected": {
+                color: "white", // Garante que o texto da aba ativa seja branco
+              },
+              "&:hover": {
+                backgroundColor: category === "headsets" ? "#0ACF83" : "rgba(0, 0, 0, 0.1)",
+              },
+            }}
+
+          />
         </Tabs>
 
         <Slider {...slickSettings}>
@@ -116,8 +150,7 @@ const Home: React.FC = () => {
                 alignItems: "center",
                 padding: 2,
                 backgroundColor: "#fff",
-                borderRadius: "12px",
-                boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                borderRadius: "16px",
                 cursor: "pointer",
                 margin: "0 8px",
               }}
@@ -132,6 +165,7 @@ const Home: React.FC = () => {
                     marginBottom: 1,
                     lineHeight: 1.2,
                     wordWrap: "break-word",
+                    fontSize: "22px",
                   }}
                 >
                   {product.name}
@@ -144,7 +178,7 @@ const Home: React.FC = () => {
                     textTransform: "none",
                     fontWeight: "bold",
                     fontSize: "14px",
-                    color: "#27AE60",
+                    color: "#0ACF83",
                     padding: 0,
                     justifyContent: "flex-start",
                   }}
@@ -189,17 +223,17 @@ const Home: React.FC = () => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h6" fontWeight="bold">
+          <Typography sx={{fontSize:"16px"}} variant="h6" fontWeight="bold">
             Featured Products
           </Typography>
-          <Button onClick={() => navigate("/all-products")} size="small">
+          <Button sx= {{color: "grey", fontSize:"14px"}} onClick={() => navigate("/all-products")} size="small">
             See All
           </Button>
         </Box>
 
         <Slider
           {...{
-            
+
             infinite: true,
             speed: 500,
             slidesToShow: 2, // Mostra dois produtos de cada vez
@@ -216,14 +250,13 @@ const Home: React.FC = () => {
                 padding: 2,
                 cursor: "pointer",
                 backgroundColor: "#fff",
-                borderRadius: "12px",
-                boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-                margin: "8px", // Adiciona um espaçamento entre os cards
-                minHeight: "220px", // Define uma altura mínima para evitar variação
+                margin: "0 16px", // Adiciona espaço entre os produtos
+                minHeight: "150px", // Altura mínima consistente
+                width: "calc(50% - 32px)", // Garante espaçamento ao redor dos produtos
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                alignItems: "center",
+                alignItems: "center", // Adiciona leve sombra para destacar os cards
               }}
               onClick={() => navigate(`/product/${product.id}`)}
             >
@@ -239,13 +272,12 @@ const Home: React.FC = () => {
               />
               <Typography
                 variant="subtitle1"
-                fontWeight="bold"
-                sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "80%" }}
+                sx={{fontSize: "14px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "80%" }}
               >
                 {product.name}
               </Typography>
-              <Typography variant="body2" color="textSecondary">
-                USD {product.price.toFixed(2)}
+              <Typography sx ={{fontSize: "12px"}} fontWeight="bold" variant="body2">
+                USD {product.price.toFixed(0)}
               </Typography>
             </Box>
           ))}

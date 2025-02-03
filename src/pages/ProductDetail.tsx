@@ -55,7 +55,7 @@ const ProductDetail: React.FC = () => {
   }
 
   const slickSettings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 2,
@@ -81,10 +81,10 @@ const ProductDetail: React.FC = () => {
 
       {/* Produto */}
       <Box sx={{ marginTop: "64px", padding: 2 }}>
-        <Typography variant="h6" color="#0ACF83">
-          USD {product.price.toFixed(2)}
+        <Typography sx={{ fontSize: "16px", fontWeight: "bold" }} variant="h6" color="#0ACF83">
+          USD {product.price.toFixed(0)}
         </Typography>
-        <Typography variant="h4" sx={{ fontWeight: "bold", marginBottom: 2 }}>
+        <Typography variant="h4" sx={{ fontWeight: "bold", marginBottom: 2, fontSize: "28px" }}>
           {product.name}
         </Typography>
 
@@ -100,11 +100,19 @@ const ProductDetail: React.FC = () => {
         >
           <Tab
             label="Overview"
-            sx={{ textTransform: "none", fontWeight: tabIndex === 0 ? "bold" : "normal" }}
+            sx={{
+              textTransform: "none", "&.Mui-selected": {
+                color: tabIndex === 0 ? "inherit" : "inherit", // Garante que o texto da aba ativa seja branco
+              },
+            }}
           />
           <Tab
             label="Features"
-            sx={{ textTransform: "none", fontWeight: tabIndex === 1 ? "bold" : "normal" }}
+            sx={{
+              textTransform: "none", "&.Mui-selected": {
+                color: tabIndex === 1 ? "inherit" : "inherit", // Garante que o texto da aba ativa seja branco
+              },
+            }}
           />
         </Tabs>
 
@@ -112,9 +120,9 @@ const ProductDetail: React.FC = () => {
         {tabIndex === 0 && (
           <Box>
             <Card sx={{ borderRadius: "16px", marginBottom: 2 }}>
-              <CardMedia component="img" height="300" image={product.img} alt={product.name} />
+              <CardMedia component="img" height="391" width="285" image={product.img} alt={product.name} />
             </Card>
-            <Typography variant="h5" sx={{ marginBottom: 2 }}>
+            <Typography variant="h5" sx={{ marginBottom: 2, fontSize: "16px" }}>
               Reviews ({product.reviews.length})
             </Typography>
             {product.reviews.map((review: any, index: number) => (
@@ -122,26 +130,43 @@ const ProductDetail: React.FC = () => {
                 key={index}
                 sx={{
                   display: "flex",
-                  marginBottom: 2,
-                  alignItems: "center",
-                  backgroundColor: "#fff",
-                  padding: "8px",
-                  boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+                  alignItems: "flex-start",
+        gap: "12px",
+        marginBottom: "16px",
+        padding: "12px",
+        backgroundColor: "#f9f9f9",
+        borderRadius: "8px",
+        boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.1)",
+                  
                 }}
               >
                 <img
                   src={commentAvatarUrl}
                   alt="User Avatar"
-                  style={{ width: "40px", height: "40px", borderRadius: "200%", marginRight: "8px" }}
+                  style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
                 />
                 <Box>
-                  <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+                  <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: "16px" }}>
                     {review.userName}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    ★ {review.rating} · {review.postedAt}
-                  </Typography>
-                  <Typography>{review.comment}</Typography>
+                  <Box sx={{ display: "flex", alignItems: "center", marginBottom: "8px" }}>
+          {/* Estrelas */}
+          {Array.from({ length: review.rating }, (_, i) => (
+            <span key={i} style={{ color: "#FFD700", marginRight: "4px" }}>★</span>
+          ))}
+        </Box>
+        <Typography
+          variant="body2"
+          sx={{
+            fontSize: "14px",
+            lineHeight: "1.5",
+            maxHeight: "4.5em", // Limita a altura para 3 linhas
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {review.comment}
+        </Typography>
                 </Box>
               </Box>
             ))}
@@ -156,8 +181,8 @@ const ProductDetail: React.FC = () => {
                   marginBottom: 2,
                 }}
               >
-                <Typography variant="h5">Another Product</Typography>
-                <Button onClick={() => navigate("/all-products")} size="small">
+                <Typography sx={{fontSize: "16px"}}variant="h5">Another Product</Typography>
+                <Button sx={{ color: "grey", fontSize: "14px" }} onClick={() => navigate("/all-products")} size="small">
                   See All
                 </Button>
               </Box>
@@ -170,8 +195,14 @@ const ProductDetail: React.FC = () => {
                       padding: 2,
                       backgroundColor: "#fff",
                       borderRadius: "12px",
-                      boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                      margin: "0 16px", // Espaço horizontal consistente
+                      minHeight: "260px", // Aumenta a altura mínima para acomodar o conteúdo
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between", 
                       cursor: "pointer",
+                      alignItems: "center", // Adiciona leve sombra para destacar os cards
+                      
                     }}
                     onClick={() => navigate(`/product/${related.id}`)}
                   >
@@ -179,17 +210,36 @@ const ProductDetail: React.FC = () => {
                       src={related.img}
                       alt={related.name}
                       style={{
-                        width: "100px",
-                        height: "100px",
+                        width: "125px",
+                        height: "135px",
                         objectFit: "contain",
-                        marginBottom: "8px",
+                        marginBottom: "10px", // Espaço abaixo da imagem
                       }}
                     />
-                    <Typography variant="subtitle1" fontWeight="bold">
+                    <Typography
+                      variant="subtitle1"
+                      color="textSecondary"
+                      sx={{
+                        fontSize: "14px",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        maxWidth: "100%",
+                        marginBottom: "4px", // Espaço abaixo do nome do produto
+                      }}
+                    >
                       {related.name}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      USD {related.price.toFixed(2)}
+                    <Typography
+                    fontWeight="bold"
+                      variant="body2"
+                      
+                      sx={{
+                        fontSize: "12px",
+                        marginBottom: "4px", // Espaço abaixo do preço
+                      }}
+                    >
+                      USD {related.price.toFixed(0)}
                     </Typography>
                   </Box>
                 ))}
@@ -200,10 +250,13 @@ const ProductDetail: React.FC = () => {
 
         {tabIndex === 1 && (
           <Box>
-            <Typography variant="h5" sx={{ marginBottom: 2 }}>
+            <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: 2, fontSize: "16px" }}>
               Features
             </Typography>
-            <Typography variant="body1">{product.details}</Typography>
+            <Typography sx={{ fontSize: "16px" }}
+              variant="body1">
+              {product.details}
+            </Typography>
           </Box>
         )}
 
@@ -217,7 +270,7 @@ const ProductDetail: React.FC = () => {
             backgroundColor: "white",
             padding: "16px",
             boxShadow: "0px -2px 10px rgba(0,0,0,0.1)",
-            display: "flex",
+            
             justifyContent: "center",
           }}
         >
@@ -225,7 +278,8 @@ const ProductDetail: React.FC = () => {
             variant="contained"
             color="success"
             fullWidth
-            sx={{ borderRadius: "20px", maxWidth: "300px", backgroundColor: "#0ACF83" }}
+            
+            sx={{ borderRadius: "5px", width: "90%", backgroundColor: "#0ACF83" }}
             onClick={() => addToCart({ ...product, quantity: 1 })}
           >
             Add To Cart

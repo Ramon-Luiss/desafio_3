@@ -23,7 +23,7 @@ const ShoppingCart: React.FC = () => {
   const totalPrice = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", paddingBottom: "100px" }}>
+    <Box sx={{ backgroundColor: "white", minHeight: "100vh", paddingBottom: "100px" }}>
       {/* Navbar fixa */}
       <AppBar position="fixed" color="transparent" elevation={0} sx={{ backgroundColor: "white" }}>
         <Toolbar>
@@ -40,12 +40,13 @@ const ShoppingCart: React.FC = () => {
       </AppBar>
 
       {/* Lista de Produtos */}
-      <Box sx={{ padding: 2, marginTop: "80px" }}>
+      <Box sx={{ backgroundColor: "white",padding: 2, marginTop: "80px" }}>
         {cart.items.map((item) => (
-          <Card key={item.id} sx={{ display: "flex", marginBottom: 2 }}>
+          <Card key={item.id} sx={{backgroundColor: "white", display: "flex", marginBottom: 2 }}>
             <CardMedia
+            
               component="img"
-              sx={{ width: 100 }}
+              sx={{ width: 100, backgroundColor: "#f5f5f5"}}
               image={item.img}
               alt={item.name}
             />
@@ -56,13 +57,18 @@ const ShoppingCart: React.FC = () => {
               </Typography>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1, marginTop: 1 }}>
                 <Button
+                
+                sx={{height:"30px",color: "black",
+                  width :"30px"}}  
                   variant="outlined"
-                  size="small"
+
+                  
                   onClick={() => updateQuantity(item.id, item.quantity - 1)} // Diminui quantidade
                 >
                   -
                 </Button>
                 <TextField
+                  
                   size="small"
                   value={item.quantity}
                   sx={{ width: 40 }}
@@ -76,6 +82,7 @@ const ShoppingCart: React.FC = () => {
                   +
                 </Button>
                 <IconButton
+                sx={{color: "inherit"}}
                   edge="end"
                   color="error"
                   onClick={() => removeFromCart(item.id)} // Remove item
@@ -101,8 +108,8 @@ const ShoppingCart: React.FC = () => {
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: "16px" }}>
-          <Typography variant="subtitle1">Total {totalItems} Items</Typography>
-          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+          <Typography variant="subtitle1" sx={{fontSize:"12px"}}>Total {totalItems} Items</Typography>
+          <Typography variant="h6" sx={{ fontWeight: "bold", fontSize:"16px" }}>
             USD {totalPrice.toFixed(2)}
           </Typography>
         </Box>

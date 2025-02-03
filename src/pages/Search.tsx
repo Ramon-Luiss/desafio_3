@@ -77,7 +77,9 @@ const Search: React.FC = () => {
 
       {/* Barra de Pesquisa fixa */}
       <Box sx={{
-        maxWidth: "400px",
+        margin: "16px auto", // Adiciona margem vertical e centraliza horizontalmente
+        maxWidth: "500px", // Define uma largura máxima para a barra de pesquisa
+        display: "block", // Garante que ela se comporte como um bloco
         position: "fixed",
         top: "44px",
         left: 0,
@@ -85,7 +87,7 @@ const Search: React.FC = () => {
         backgroundColor: "white",
         zIndex: 10,
         padding: "8px",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)"
+        
       }}>
         <TextField
           variant="outlined"
@@ -94,6 +96,8 @@ const Search: React.FC = () => {
           onChange={handleSearch}
           value={searchQuery}
           sx={{
+            left: 20,
+            width: "90%",
             borderRadius: "20px",
             backgroundColor: "#f5f5f5",
             "& fieldset": { border: "none" }, // Remove a borda do campo de busca

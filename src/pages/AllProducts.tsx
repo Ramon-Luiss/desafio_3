@@ -13,7 +13,7 @@ import {
     CircularProgress,
     Dialog,
 } from "@mui/material";
-import { ArrowBack, ShoppingCart, Close, FilterAlt } from "@mui/icons-material";
+import { ArrowBack, Close, FilterList } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../services/apiService.ts";
 import CartIcon from "../components/CartIcon.tsx";
@@ -101,16 +101,19 @@ const AllProducts: React.FC = () => {
                     </CartIcon>
                 </Toolbar>
             </AppBar>
-
+            
             {/* Filtro */}
             <Box sx={{ marginTop: "64px", display: "flex", justifyContent: "center", padding: 2 }}>
                 <Button
+                color="inherit"
                     variant="outlined"
-                    startIcon={<FilterAlt />}
+                    startIcon={<FilterList />}
                     sx={{
+                         color: "black",
                         textTransform: "none",
                         borderRadius: "10px",
-                        padding: "8px 96px",
+                        padding: "8px",
+                        width: "90%",
                         
                     }}
                     onClick={() => setFilterOpen(true)} // Abre o modal de filtro
@@ -162,10 +165,10 @@ const AllProducts: React.FC = () => {
             </Grid>
 
             {/* Modal de Filtro */}
-            <Dialog open={filterOpen} onClose={() => setFilterOpen(false)} fullWidth>
-                <Box sx={{ padding: 3 }}>
+            <Dialog sx ={{borderRadius: "36px"}}open={filterOpen} onClose={() => setFilterOpen(false)} fullWidth>
+                <Box sx={{ padding: 3}}>
                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                        <Typography variant="h6">Filter</Typography>
+                        <Typography sx={{fontSize:"24px", fontWeight:"bold"}}  variant="h6">Filter</Typography>
                         <IconButton onClick={() => setFilterOpen(false)}>
                             <Close />
                         </IconButton>
@@ -177,13 +180,23 @@ const AllProducts: React.FC = () => {
                     </Typography>
                     <Box sx={{ display: "flex", gap: 2, marginTop: 1 }}>
                         <Button
-                            variant={filter.category === "headphones" ? "contained" : "outlined"}
+                        sx={{backgroundColor: filter.category === "headphones" ? "#0ACF83" : "inherit",
+                            color: filter.category === "headphones" ? "white" : "black",
+                            "&.Mui-selected": {
+                              color: "white", // Garante que o texto da aba ativa seja branco
+                            },}}
+                            variant={filter.category === "headphones" ? "contained" : "text"}
                             onClick={() => setFilter((prev) => ({ ...prev, category: "headphones" }))}
                         >
                             Headphone
                         </Button>
                         <Button
-                            variant={filter.category === "headsets" ? "contained" : "outlined"}
+                        sx={{backgroundColor: filter.category === "headsets" ? "#0ACF83" : "inherit",
+                            color: filter.category === "headsets" ? "white" : "black",
+                            "&.Mui-selected": {
+                              color: "white", // Garante que o texto da aba ativa seja branco
+                            },}}
+                            variant={filter.category === "headsets" ? "contained" : "text"}
                             onClick={() => setFilter((prev) => ({ ...prev, category: "headsets" }))}
                         >
                             Headset
@@ -197,6 +210,12 @@ const AllProducts: React.FC = () => {
                     <Box sx={{ display: "flex", gap: 2, marginTop: 1, flexWrap: "wrap" }}>
                         {["popularity", "newest", "oldest", "highPrice", "lowPrice"].map((sort) => (
                             <Button
+                            color="inherit"
+                            sx={{backgroundColor: filter.sortBy === sort ? "#0ACF83" : "transparent",
+                                color: filter.sortBy === sort ? "white" : "black",
+                                "&.Mui-selected": {
+                                  color: "white", // Garante que o texto da aba ativa seja branco
+                                },}}
                                 key={sort}
                                 variant={filter.sortBy === sort ? "contained" : "outlined"}
                                 onClick={() => setFilter((prev) => ({ ...prev, sortBy: sort }))}
