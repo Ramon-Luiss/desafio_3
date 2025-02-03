@@ -1,15 +1,15 @@
 import React from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
-import SignIn from "./pages/SignIn.tsx";
-import Search from "./pages/Search.tsx";
+import SignIn from "./pages/Login/SignIn.tsx";
+import Search from "./pages/Search/Search.tsx";
 import { AuthProvider, useAuth } from "./context/AuthContext.tsx";
-import AllProducts from "./pages/AllProducts.tsx";
-import ProductDetail from "./pages/ProductDetail.tsx";
-import ShoppingCart from "./pages/ShoppingCart.tsx";
+import AllProducts from "./pages/AllProducts/AllProducts.tsx";
+import ProductDetail from "./pages/ProductDetail/ProductDetail.tsx";
+import ShoppingCart from "./pages/ShoppingCart/ShoppingCart.tsx";
 import CartProvider from "./context/CartContext.tsx";
-import SignUp from "./pages/SignUp.tsx";
-import AccountCreated from "./pages/AccountCreated.tsx";
+import SignUp from "./pages/Login/SignUp.tsx";
+import AccountCreated from "./pages/Login/AccountCreated.tsx";
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   return user ? <>{children}</> : <SignIn />;

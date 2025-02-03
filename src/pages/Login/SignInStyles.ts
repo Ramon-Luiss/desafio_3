@@ -16,17 +16,17 @@ const useSignInStyles = makeStyles({
     backgroundBlendMode: "overlay", // Combina o degradê com a imagem
   },
   logo: {
-    fontSize: "36px",
-    fontWeight: "bold",
-    marginBottom: "8px",
-    color: "#fff",
+    fontSize: "52px",
+  fontWeight: "bold",
+  textAlign: "center",
+  color: "white",
     zIndex: 1,
   },
   subtitle: {
-    fontSize: "16px",
-    fontWeight: "300",
-    marginBottom: "32px",
-    color: "#fff",
+    fontSize: "14px",
+  textAlign: "center",
+  color: "white",
+  marginBottom: "20px",
     zIndex: 1
   },
   form: {
@@ -72,11 +72,16 @@ const useSignInStyles = makeStyles({
     },
   },
   footer: {
-    marginTop: "16px",
-    fontSize: "14px",
-    textAlign: "center",
-    color: "#ffffff",
+    position: "absolute",
+  bottom: "20px",
+  left: "50%",
+  transform: "translateX(-50%)",
+  textAlign: "center",
+  width: "100%",
+  fontSize: "14px",
+  color: "#ffffff",
     "& a": {
+      fontWeight: "bold",
       color: "#0ACF83",
       textDecoration: "none",
     },

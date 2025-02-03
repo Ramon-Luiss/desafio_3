@@ -15,15 +15,15 @@ import {
 } from "@mui/material";
 import { ArrowBack, Close, FilterList } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { getProducts } from "../services/apiService.ts";
-import CartIcon from "../components/CartIcon.tsx";
+import { getProducts } from "../../services/apiService.ts";
+import CartIcon from "../../components/CartIcon.tsx";
 
 const AllProducts: React.FC = () => {
     const navigate = useNavigate();
     const [products, setProducts] = useState<any[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [filterOpen, setFilterOpen] = useState(false); // Estado para exibir o modal
+    const [filterOpen, setFilterOpen] = useState(false); 
     const [filter, setFilter] = useState({
         category: "", // headphone ou headset
         sortBy: "popularity", // popularity, newest, oldest, highPrice, lowPrice
@@ -183,7 +183,7 @@ const AllProducts: React.FC = () => {
                         sx={{backgroundColor: filter.category === "headphones" ? "#0ACF83" : "inherit",
                             color: filter.category === "headphones" ? "white" : "black",
                             "&.Mui-selected": {
-                              color: "white", // Garante que o texto da aba ativa seja branco
+                              color: "white", 
                             },}}
                             variant={filter.category === "headphones" ? "contained" : "text"}
                             onClick={() => setFilter((prev) => ({ ...prev, category: "headphones" }))}
@@ -194,7 +194,7 @@ const AllProducts: React.FC = () => {
                         sx={{backgroundColor: filter.category === "headsets" ? "#0ACF83" : "inherit",
                             color: filter.category === "headsets" ? "white" : "black",
                             "&.Mui-selected": {
-                              color: "white", // Garante que o texto da aba ativa seja branco
+                              color: "white", 
                             },}}
                             variant={filter.category === "headsets" ? "contained" : "text"}
                             onClick={() => setFilter((prev) => ({ ...prev, category: "headsets" }))}
@@ -214,7 +214,7 @@ const AllProducts: React.FC = () => {
                             sx={{backgroundColor: filter.sortBy === sort ? "#0ACF83" : "transparent",
                                 color: filter.sortBy === sort ? "white" : "black",
                                 "&.Mui-selected": {
-                                  color: "white", // Garante que o texto da aba ativa seja branco
+                                  color: "white", 
                                 },}}
                                 key={sort}
                                 variant={filter.sortBy === sort ? "contained" : "outlined"}
